@@ -1,5 +1,5 @@
 # anonymous_10696
-
+Code to be further cleaned and updated soon ...
 # Requirements
 ### Requirements
 Install the following packages:
@@ -15,8 +15,11 @@ Install the following packages:
 - PyYAML==5.4.1
 - scikit_learn==0.24.2
 # Basic Usage
+
+## Node Classification
 ```
-$ python run_simple_random_split.py --dataset Cora
+$ python run_simple_random_split.py --dataset Cora   # node classification
 ```
 
-
+## Link Prediction
+Coming soon
