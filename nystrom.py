@@ -19,31 +19,31 @@ class Nystrom():
 		n_samples = len(graphs)
 
 		# get basis vectors
-		if self.n_components > n_samples:   # embedding维度不能超过社区总数
+		if self.n_components > n_samples:  
 			n_components = n_samples
 		else:
 			n_components = self.n_components
-		n_components = min(n_samples, n_components)   # embedding的维度为200  n_sample可能非常大
-		inds = rnd.permutation(n_samples)  # 所有子图重新排列
-		basis_inds = inds[:n_components]   # 前200个社区
+		n_components = min(n_samples, n_components)   # 
+		inds = rnd.permutation(n_samples)  
+		basis_inds = inds[:n_components]  
 		basis = []  # 200个子图
 		for ind in basis_inds:  
 			basis.append(graphs[ind])
 
-		basis_kernel = self.kernel(basis, basis, **self._get_kernel_params())  # 200个图互相之间的相似度， 迭代6次
+		basis_kernel = self.kernel(basis, basis, **self._get_kernel_params())  
 
 		# sqrt of kernel matrix on basis vectors
-		U, S, V = svd(basis_kernel)  # 对kernel matrix做svd分解   
+		U, S, V = svd(basis_kernel)  
 
-		S = np.maximum(S, 1e-12)   # X 与 Y 逐位比较取其大者
+		S = np.maximum(S, 1e-12)   
 		self.normalization_ = np.dot(U * 1. / np.sqrt(S), V)
 		self.components_ = basis
 		self.component_indices_ = inds
 		return self
 
 	def transform(self, graphs):
-		embedded = self.kernel(graphs, self.components_, **self._get_kernel_params())   # 其他所有子图和这200个图的相似度举证
-		# print(embedded.shape)                                                           # (2592, 200)
+		embedded = self.kernel(graphs, self.components_, **self._get_kernel_params())   
+		# print(embedded.shape)                                                         
 		return np.dot(embedded, self.normalization_.T)
 
 	def _get_kernel_params(self):

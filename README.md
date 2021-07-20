@@ -5,7 +5,6 @@ Code to be further cleaned and updated soon ...
 Install the following packages:
 
 - [pytorch](https://pytorch.org/get-started/locally/)
-- [torch_geometric](https://github.com/rusty1s/pytorch_geometric)
 - [lshknn](https://github.com/iosonofabio/lshknn)
 - scikit-learn
 - networkx
